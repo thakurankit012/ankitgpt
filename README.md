@@ -1,9 +1,9 @@
 
-Absolutely, crafting an engaging README for your GitHub project is crucial for attracting users and contributors. Here's a suggestion:
 
-AwesomeChatBot
 
-Welcome to AwesomeChatBot, a sleek and customizable chatbot powered by open APIs, crafted with JavaScript, HTML, and CSS. Whether you're a developer looking to enhance user interactions on your website or just curious about the potential of chatbots, AwesomeChatBot provides a robust foundation to build upon.
+AnkitChatgpt
+
+Welcome to AnkitChatgpt, a sleek and customizable chatbot powered by open APIs, crafted with JavaScript, HTML, and CSS. Whether you're a developer looking to enhance user interactions on your website or just curious about the potential of chatbots, AwesomeChatBot provides a robust foundation to build upon.
 
 Features
 Open API Integration: Seamlessly integrate various APIs to enhance your chatbot's functionality. From weather updates to news feeds, the possibilities are endless.
@@ -21,10 +21,6 @@ Implement the desired APIs by modifying the JavaScript code.
 Deploy the chatbot to your website and start engaging with your users!
 For detailed instructions, please refer to the documentation.
 
-Example
-Check out the following example to see AwesomeChatBot in action:
-
-Live Demo
 
 Contributing
 We welcome contributions from the community! Whether you're fixing a bug, implementing a new feature, or improving the documentation, your contributions are valuable. Please refer to our contribution guidelines for more information.
