@@ -5,7 +5,7 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "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"; // go to the openai.com then click on the API section then create a key then paste the key in double quotation mark in this line  
+const API_KEY = "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"; // go to the openai.com then click on the API section then create a key then paste the key in double quotation mark in this line  
 
 const fadeInOut = (element, isFadeIn) => {
   let opacity = isFadeIn ? 0 : 1;
