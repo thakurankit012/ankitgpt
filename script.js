@@ -5,7 +5,10 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "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"; // go to the openai.com then click on the API section then create a key then paste the key in double quotation mark in this line  
+const API_KEY = "AIzaSyDhXi6Ermx2S7aXFd9jggmEj5sbOL24eWI"; // Replace with your actual API key
+const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
+
+const initialInputHeight = chatInput.scrollHeight;
 
 const fadeInOut = (element, isFadeIn) => {
   let opacity = isFadeIn ? 0 : 1;
@@ -46,45 +49,32 @@ const loadDataFromLocalstorage = () => {
 
   const defaultText = `<div class="default-text opening-animation" >
                           <h1>AnkitGPT</h1>
-                          <p> Just type your thoughts, questions, or ideas, and let the magic unfold..<br> 🌟 Get ready for an extraordinary chat experience that adapts to your style...</p>
+                          <p> Just type your thoughts, questions, or ideas, and let the magic unfold..<br> &#x2605; Get ready for an extraordinary chat experience that adapts to your style...</p>
                       </div>`;
 
   chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 };
 
-const getChatResponse = async (incomingChatDiv) => {
-  const API_URL = "https://api.openai.com/v1/completions";
-  const pElement = document.createElement("p");
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "text-davinci-003",
-      prompt: userText,
-      max_tokens: 2048,
-      temperature: 0.2,
-      n: 1,
-      stop: null
-    })
-  };
-
+const getChatResponse = async (userText) => {
   try {
-    const response = await (await fetch(API_URL, requestOptions)).json();
-    pElement.textContent = response.choices[0].text.trim();
-  } catch (error) {
-    pElement.classList.add("error");
-    pElement.textContent = "Oops! Something went wrong while retrieving the response. Please try again.";
-  }
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": API_KEY
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: userText }] }]
+      })
+    });
 
-  incomingChatDiv.querySelector(".typing-animation").remove();
-  incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
-  localStorage.setItem("all-chats", chatContainer.innerHTML);
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    const data = await response.json();
+    return data.candidates[0].content.parts[0].text;
+  } catch (error) {
+    console.error("API error:", error);
+    return "Error: API request failed";
+  }
 };
 
 const copyResponse = (copyBtn) => {
@@ -95,29 +85,26 @@ const copyResponse = (copyBtn) => {
 };
 
 const showTypingAnimation = () => {
-  const html = `<div class="chat-content">
-                  <div class="chat-details">
-                      <img src="images/chatbot.jpg" alt="chatbot-img">
-                      <div class="typing-animation">
-                          <div class="typing-dot" style="--delay: 0.2s"></div>
-                          <div class="typing-dot" style="--delay: 0.3s"></div>
-                          <div class="typing-dot" style="--delay: 0.4s"></div>
-                      </div>
-                  </div>
-                  <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
-              </div>`;
-  const incomingChatDiv = createChatElement(html, "incoming");
-  chatContainer.appendChild(incomingChatDiv);
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  getChatResponse(incomingChatDiv);
+  getChatResponse(userText).then((response) => {
+    const html = `<div class="chat-content">
+                    <div class="chat-details">
+                        <img src="images/chatbot.jpg" alt="chatbot-img">
+                        <p>${response}</p>
+                        <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
+                    </div>
+                </div>`;
+    const incomingChatDiv = createChatElement(html, "incoming");
+    chatContainer.appendChild(incomingChatDiv);
+    chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  });
 };
-
 const handleOutgoingChat = () => {
   userText = chatInput.value.trim();
   if (!userText) return;
 
+
   chatInput.value = "";
-  chatInput.style.height = `${initialInputHeight}px`;
+  chatInput.style.height = "auto";
 
   const html = `<div class="chat-content">
                   <div class="chat-details">
@@ -130,19 +117,7 @@ const handleOutgoingChat = () => {
   chatContainer.querySelector(".default-text")?.remove();
   chatContainer.appendChild(outgoingChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  setTimeout(() => showTypingAnimation(outgoingChatDiv), 500);
-  addDownArrow(outgoingChatDiv);
-};
-
-const addDownArrow = (outgoingChatDiv) => {
-  const downArrow = document.createElement("div");
-  downArrow.className = "down-arrow";
-  downArrow.innerHTML = "&#x2193;"; 
-  outgoingChatDiv.appendChild(downArrow);
-
-  downArrow.addEventListener("click", () => {
-    removeChatElement(outgoingChatDiv);
-  });
+  setTimeout(showTypingAnimation, 500);
 };
 
 deleteButton.addEventListener("click", () => {
@@ -154,14 +129,12 @@ deleteButton.addEventListener("click", () => {
 
 themeButton.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
-  localStorage.setItem("themeColor", themeButton.innerText);
+  localStorage.setItem("themeColor", document.body.classList.contains("light-mode") ? "light_mode" : "dark_mode");
   themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 });
 
-const initialInputHeight = chatInput.scrollHeight;
-
 chatInput.addEventListener("input", () => {
-  chatInput.style.height = `${initialInputHeight}px`;
+  chatInput.style.height = "auto";
   chatInput.style.height = `${chatInput.scrollHeight}px`;
 });
 
@@ -174,9 +147,3 @@ chatInput.addEventListener("keydown", (e) => {
 
 loadDataFromLocalstorage();
 sendButton.addEventListener("click", handleOutgoingChat);
-
-// ankit thakur 
-// email - thakurankit13197@gmail.com
-// now hope this web will work and if this didn't work. I am surely gonna do changes in my code and make it better 
-
-
