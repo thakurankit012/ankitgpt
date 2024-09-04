@@ -1,5 +1,5 @@
 
-![AnkitGPT Demo](https://ankitgpt.netlify.app/)
+https://ankitgpt.netlify.app/
 
 # AnkitGPT
 
