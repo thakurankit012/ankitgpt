@@ -88,7 +88,7 @@ const showTypingAnimation = () => {
   getChatResponse(userText).then((response) => {
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="https://ibb.co/Lv4txRX" alt="chatbot-img">
+                        <a href="https://ibb.co/Lv4txRX"><img src="https://i.ibb.co/GFg2Wp4/chatbot.jpg" alt="chatbot" border="0"></a>
                         <p>${response}</p>
                         <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
                     </div>
