@@ -88,7 +88,7 @@ const showTypingAnimation = () => {
   getChatResponse(userText).then((response) => {
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="images/chatbot.jpg" alt="chatbot-img">
+                        <img src="https://ibb.co/Lv4txRX" alt="chatbot-img">
                         <p>${response}</p>
                         <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
                     </div>
@@ -108,7 +108,7 @@ const handleOutgoingChat = () => {
 
   const html = `<div class="chat-content">
                   <div class="chat-details">
-                      <img src="images/user.jpg" alt="user-img">
+                      <img src="https://ibb.co/bL7QMRg" alt="user-img">
                       <p>${userText}</p>
                   </div>
               </div>`;
