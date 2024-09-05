@@ -324,12 +324,12 @@ body {
   font-family: 'Courier New', Courier, monospace;
   overflow-x: auto;
   white-space: pre;
-  background: none; /* Remove background color */
-  border: none; /* Remove border */
+  background: none; 
+  border: none; 
 }
 
 .bash-code {
-  color: #d8dee9;
+  color: var(--text-color); 
 }
 
 .code-block {
