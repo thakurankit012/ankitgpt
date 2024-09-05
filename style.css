@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
 :root {
   --text-color: #FFFFFF;
   --icon-color: #ACACBE;
@@ -62,7 +63,6 @@ body {
 
 .chat-container {
   overflow-y: auto;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
   max-height: 80vh;
   padding-bottom: 150px;
   width: 100%;
@@ -71,7 +71,6 @@ body {
   flex-direction: column;
   align-items: center;
   margin: 0 auto; 
-  background-color: var(--incoming-chat-bg); /* Ensure background matches */
 }
 
 .chat {
@@ -91,21 +90,18 @@ body {
 .chat p {
   font-size: 14px;
   color: var(--text-color);
-  word-wrap: break-word; /* Ensure text wraps */
-  overflow-wrap: break-word; /* Ensure text wraps */
-  white-space: normal; /* Ensure text wraps */
+  word-wrap: break-word;
 }
 
 .chat-content {
-  max-width: 100%; /* Ensure chat content does not exceed the width */
-  word-wrap: break-word; /* Ensure text wraps */
-  overflow-wrap: break-word; /* Ensure text wraps */
+  max-width: 75%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   margin: 10px 0;
   padding: 10px;
   border-radius: 8px;
-  background-color: var(--incoming-chat-bg); /* Match background color */
+  background-color: var(--incoming-chat-bg);
   color: var(--text-color);
-  box-shadow: 0 0 0 1px var(--incoming-chat-border); /* Optional border */
 }
 
 .incoming .chat-content {
@@ -319,17 +315,17 @@ body {
   }
 }
 
+
 .bash-code,
 .code-block {
   border-radius: 4px;
   padding: 10px;
   margin: 10px 0;
   font-family: 'Courier New', Courier, monospace;
+  overflow-x: auto;
+  white-space: pre;
   background: none; /* Remove background color */
   border: none; /* Remove border */
-  word-wrap: break-word; /* Ensure text wraps */
-  overflow-wrap: break-word; /* Ensure text wraps */
-  white-space: pre-wrap; /* Preserve whitespace and wrap text */
 }
 
 .bash-code {
@@ -338,8 +334,6 @@ body {
 
 .code-block {
   color: var(--text-color);
-  max-width: 100%; /* Ensure code block does not exceed container width */
-  overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
 
 .code-block span {
