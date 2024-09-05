@@ -33,12 +33,12 @@ const createChatElement = (content, className) => {
   const chatDiv = document.createElement("div");
   chatDiv.classList.add("chat", className);
   chatDiv.innerHTML = content;
-  fadeInOut(chatDiv, true); 
+  fadeInOut(chatDiv, true);
   return chatDiv;
 };
 
 const removeChatElement = (element) => {
-  fadeInOut(element, false); 
+  fadeInOut(element, false);
 };
 
 const loadDataFromLocalstorage = () => {
@@ -47,9 +47,9 @@ const loadDataFromLocalstorage = () => {
   document.body.classList.toggle("light-mode", themeColor === "light_mode");
   themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
 
-  const defaultText = `<div class="default-text opening-animation" >
+  const defaultText = `<div class="default-text opening-animation">
                           <h1>AnkitGPT</h1>
-                          <p> Just type your thoughts, questions, or ideas, and let the magic unfold..<br> &#x2605; Get ready for an extraordinary chat experience that adapts to your style...</p>
+                          <p>Just type your thoughts, questions, or ideas, and let the magic unfold..<br> &#x2605; Get ready for an extraordinary chat experience that adapts to your style...</p>
                       </div>`;
 
   chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
@@ -70,7 +70,13 @@ const getChatResponse = async (userText) => {
     });
 
     const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    let chatResponse = data.candidates[0].content.parts[0].text;
+
+    if (userText.toLowerCase().includes("code") || userText.toLowerCase().includes("bash")) {
+      chatResponse = `\`\`\`bash\n${chatResponse}\n\`\`\``;
+    }
+
+    return chatResponse;
   } catch (error) {
     console.error("API error:", error);
     return "Error: API request failed";
@@ -86,10 +92,20 @@ const copyResponse = (copyBtn) => {
 
 const showTypingAnimation = () => {
   getChatResponse(userText).then((response) => {
+    let contentClass = "chat-content"; 
+    
+    if (response.startsWith("```bash") && response.endsWith("```")) {
+      contentClass = "bash-code"; 
+      response = response.replace(/^```bash/, "").replace(/```$/, ""); 
+    } else if (response.startsWith("```") && response.endsWith("```")) {
+      contentClass = "code-block"; 
+      response = response.replace(/^```/, "").replace(/```$/, ""); 
+    }
+
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <a href="https://ibb.co/Lv4txRX"><img src="https://i.ibb.co/GFg2Wp4/chatbot.jpg" alt="chatbot" border="0"></a>
-                        <p>${response}</p>
+                        <img src="images/chatbot.jpg" alt="chatbot-img">
+                        <pre class="${contentClass}">${response}</pre> <!-- Apply dynamic class here -->
                         <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
                     </div>
                 </div>`;
@@ -98,17 +114,18 @@ const showTypingAnimation = () => {
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
   });
 };
+
+
 const handleOutgoingChat = () => {
   userText = chatInput.value.trim();
   if (!userText) return;
-
 
   chatInput.value = "";
   chatInput.style.height = "auto";
 
   const html = `<div class="chat-content">
                   <div class="chat-details">
-                      <a href="https://imgbb.com/"><img src="https://i.ibb.co/d67jwJ0/user.jpg" alt="user" border="0"></a>
+                      <img src="images/user.jpg" alt="user-img">
                       <p>${userText}</p>
                   </div>
               </div>`;
@@ -147,3 +164,4 @@ chatInput.addEventListener("keydown", (e) => {
 
 loadDataFromLocalstorage();
 sendButton.addEventListener("click", handleOutgoingChat);
+
