@@ -104,7 +104,7 @@ const showTypingAnimation = () => {
 
     const html = `<div class="chat-content">
                     <div class="chat-details">
-                        <img src="images/chatbot.jpg" alt="chatbot-img">
+                        <img src="chatbot.jpg" alt="chatbot-img">
                         <pre class="${contentClass}">${response}</pre> <!-- Apply dynamic class here -->
                         <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
                     </div>
