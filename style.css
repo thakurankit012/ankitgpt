@@ -315,24 +315,24 @@ body {
   }
 }
 
+
 .bash-code,
 .code-block {
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 10px;
   margin: 10px 0;
   font-family: 'Courier New', Courier, monospace;
   overflow-x: auto;
   white-space: pre;
+  background: none; /* Remove background color */
+  border: none; /* Remove border */
 }
 
 .bash-code {
-  background-color: #2e3440;
-  border: 1px solid #4c566a;
   color: #d8dee9;
 }
 
 .code-block {
-  background-color: var(--incoming-chat-bg);
   color: var(--text-color);
 }
 
