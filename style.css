@@ -91,19 +91,21 @@ body {
 .chat p {
   font-size: 14px;
   color: var(--text-color);
-  word-wrap: break-word;
-  white-space: normal; /* Ensure text wraps properly */
+  word-wrap: break-word; /* Ensure text wraps */
+  overflow-wrap: break-word; /* Ensure text wraps */
+  white-space: normal; /* Ensure text wraps */
 }
 
 .chat-content {
   max-width: 100%; /* Ensure chat content does not exceed the width */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  word-wrap: break-word; /* Ensure text wraps */
+  overflow-wrap: break-word; /* Ensure text wraps */
   margin: 10px 0;
   padding: 10px;
   border-radius: 8px;
-  background-color: var(--incoming-chat-bg);
+  background-color: var(--incoming-chat-bg); /* Match background color */
   color: var(--text-color);
+  box-shadow: 0 0 0 1px var(--incoming-chat-border); /* Optional border */
 }
 
 .incoming .chat-content {
@@ -323,10 +325,11 @@ body {
   padding: 10px;
   margin: 10px 0;
   font-family: 'Courier New', Courier, monospace;
-  overflow-x: auto;
-  white-space: pre;
-  background: none;
-  border: none;
+  background: none; /* Remove background color */
+  border: none; /* Remove border */
+  word-wrap: break-word; /* Ensure text wraps */
+  overflow-wrap: break-word; /* Ensure text wraps */
+  white-space: pre-wrap; /* Preserve whitespace and wrap text */
 }
 
 .bash-code {
