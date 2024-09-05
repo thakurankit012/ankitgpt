@@ -91,6 +91,8 @@ body {
   font-size: 14px;
   color: var(--text-color);
   word-wrap: break-word;
+  overflow-wrap: break-word; /* Ensure text wraps */
+  white-space: normal; /* Ensure text wraps */
 }
 
 .chat-content {
@@ -315,6 +317,7 @@ body {
   }
 }
 
+/* Remove background color from normal text and output blocks */
 .bash-code,
 .code-block {
   border-radius: 8px;
@@ -322,17 +325,16 @@ body {
   margin: 10px 0;
   font-family: 'Courier New', Courier, monospace;
   overflow-x: auto;
-  white-space: pre;
+  white-space: pre-wrap; /* Preserve whitespace and wrap text */
+  background: none; /* Remove background color */
+  border: none; /* Remove border */
 }
 
 .bash-code {
-  background-color: #2e3440;
-  border: 1px solid #4c566a;
   color: #d8dee9;
 }
 
 .code-block {
-  background-color: var(--incoming-chat-bg);
   color: var(--text-color);
 }
 
