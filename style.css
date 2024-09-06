@@ -385,3 +385,10 @@ body {
     font-size: 0.8rem; 
   }
 }
+.chat-time {
+  font-size: 0.8rem;
+  color: var(--icon-color);
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
