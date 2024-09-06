@@ -90,6 +90,14 @@ const copyResponse = (copyBtn) => {
   setTimeout(() => copyBtn.textContent = "content_copy", 1000);
 };
 
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
+};
+
+
 const showTypingAnimation = () => {
   getChatResponse(userText).then((response) => {
     let contentClass = "chat-content"; 
@@ -107,6 +115,7 @@ const showTypingAnimation = () => {
                         <img src="chatbot.jpg" alt="chatbot-img">
                         <pre class="${contentClass}">${response}</pre> <!-- Apply dynamic class here -->
                         <span onclick="copyResponse(this)" class="material-symbols-rounded">content_copy</span>
+                        <span class="chat-time">${getCurrentTime()}</span> <!-- Time displayed here -->
                     </div>
                 </div>`;
     const incomingChatDiv = createChatElement(html, "incoming");
@@ -114,6 +123,7 @@ const showTypingAnimation = () => {
     chatContainer.scrollTo(0, chatContainer.scrollHeight);
   });
 };
+
 
 
 const handleOutgoingChat = () => {
@@ -127,6 +137,7 @@ const handleOutgoingChat = () => {
                   <div class="chat-details">
                       <img src="user.jpg" alt="user-img">
                       <p>${userText}</p>
+                      <span class="chat-time">${getCurrentTime()}</span> <!-- Time displayed here -->
                   </div>
               </div>`;
 
@@ -136,6 +147,7 @@ const handleOutgoingChat = () => {
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   setTimeout(showTypingAnimation, 500);
 };
+
 
 deleteButton.addEventListener("click", () => {
   if (confirm("Are you sure you want to delete all the chats?")) {
