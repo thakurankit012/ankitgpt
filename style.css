@@ -105,10 +105,24 @@ margin-right: 10px;
 }
 
 .chat p {
-font-size: 14px;
-color: var(--text-color);
-word-wrap: break-word;
+  font-size: 14px;
+  color: var(--text-color);
+  word-wrap: break-word; /* Ensures long words break to the next line */
+  overflow-wrap: break-word; /* Additional property for breaking long words */
+  word-break: break-word; /* Forces the break for long words */
 }
+
+.outgoing .chat-content,
+.incoming .chat-content {
+  max-width: 100%; 
+  width: 100%; /* Makes sure the content stays within the boundaries */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden; /* Ensures content doesn't overflow */
+}
+
 
 .typing-animation {
 display: flex;
