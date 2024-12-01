@@ -5,7 +5,7 @@ const themeButton = document.querySelector("#theme-btn");
 const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
-const API_KEY = "AIzaSyDinZovCsWBJ48kXxfY-OTr9Fmo6hT7QAs"; // Replace with your actual API key
+const API_KEY = "AIzaSyB0yofhOSFizrHfxrjevP4DtStcrKXLJ6w"; // Replace with your actual API key
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
 
 const initialInputHeight = chatInput.scrollHeight;
